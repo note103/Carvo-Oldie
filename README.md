@@ -16,7 +16,7 @@ Cards of vocabulary
 
 1. 任意の場所にディレクトリを置いて中に入り、
 ```
-$ cd Crevo
+$ cd Carvo
 ```
 
 1. ターミナルで`practice.pl`を実行します。
