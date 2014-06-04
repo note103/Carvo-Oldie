@@ -14,14 +14,20 @@ package Carvo {
         my $port = 0;
         my $count = @words;
         my $limit = $count - 1;
-        print "The biggest number is $limit.\n";
+        my $msg1 = 'Input (a number|a word|r[andom]|enter[next]|q[uit]).';
+        my $msg2 = 'Input (a number|a word|r[andom]|s[ame]|enter[next]|q[uit]).';
+        my $msg3 = 'Input (a number|other word|r[andom]|s[ame]|enter[next]|q[uit]).';
+        my $msg4 = 'Input \'e\' or \'j\' or \'e2\' or \'j2\'.';
+        my $msg5 = "You can choose a number from 1-$limit.";
+        my $msg6 = "Too big! $msg5";
+        print "$msg1\n$msg5\n";
         my $voice = sub {
             while (my $in2 = <>) {
                 if ($in2 =~ /^($quit)$/) {
-                    print "$key($num): $english->{$key}\nNext!\n";
+                    print "$key($num): $english->{$key}\n$msg2\n";
                     last;
                 } elsif ($in2 =~ /^($english->{$key})$/) {
-                    print "Good!!\n$key($num): $english->{$key}\nKeep at it!\n";
+                    print "Good!!\n$key($num): $english->{$key}\nKeep at it!\n$msg2\n";
                     last;
                 } else {
                     print "NG! '$words->[$num]'\nAgain!\n";
@@ -31,13 +37,15 @@ package Carvo {
 
         while (my $in = <>) {
             if ($in =~ /^(q|d)$/) {
-                print "Bye!\n";
+                print "Bye!\n$msg4\n";
                 last;
+            } elsif ($in =~ /^0$/) {
+                print "$msg5\n";
             } elsif ($in =~ /^(\d+)$/) {
                 $num = $1;
                 $port = $num;
                 if ($in > $limit) {
-                    print "Too big number! More small!\n";
+                    print "$msg6\n$msg1\n";
                     next;
                 } else {
                     $key = $words->[$num];
@@ -46,7 +54,7 @@ package Carvo {
                 }
             } elsif ($in =~ /^(n|\n)$/) {
                 if ($port >= $limit) {
-                    print "Too big number! More small!\n";
+                    print "$msg6\n$msg1\n";
                     next;
                 } else {
                     $num = $port+1;
@@ -71,10 +79,10 @@ package Carvo {
             } elsif ($in =~ /^(\w+)$/) {
                 $key = $1;
                 if (exists($english{$key})) {
-                    print "Here is '$key'. What's mean in Japanese?\n";
+                    print "Here is '$key'. Write the answer.\n";
                     while (my $in2 = <>) {
                         if ($in2 =~ /^($quit)$/) {
-                            print "$key: $english->{$key}\nNext!\n";
+                            print "$key: $english->{$key}\n$msg2\n";
                             last;
                         } elsif ($in2 =~ /^($english->{$key})$/) {
                             print "Good!!\n$key: $english->{$key}\nKeep at it!\n";
@@ -84,10 +92,10 @@ package Carvo {
                         }
                     }
                 } else {
-                    print "Here is not '$key'. Next!\n";
+                    print "Here is not '$key'.\n$msg3\n";
                 }
             } else {
-                print "Please input a number or a correct keyword.\n";
+                print "Please input a correct one.\n";
             }
         }
     }
