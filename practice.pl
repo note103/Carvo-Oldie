@@ -13,6 +13,6 @@ while (my $in = <>) {
     } elsif ($in =~ /^(e|e2|j|j2|\n)$/) {
         Carvo::tutor(Generator::switch("$1"));
     } else {
-        print "Anything problems?\n";
+        print "Please input a correct one.\n";
     }
 }

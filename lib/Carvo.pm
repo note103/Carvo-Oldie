@@ -14,8 +14,8 @@ package Carvo {
         my $port = 0;
         my $count = @words;
         my $limit = $count - 1;
-        my $msg1 = 'Input (a number|a word|r[andom]|enter[next]|q[uit]).';
-        my $msg2 = 'Input (a number|a word|r[andom]|s[ame]|enter[next]|q[uit]).';
+        my $msg1 = 'Input (a number|r[andom]|enter[next]|q[uit]).';
+        my $msg2 = 'Input (a number|r[andom]|s[ame]|enter[next]|q[uit]).';
         my $msg3 = 'Input (a number|other word|r[andom]|s[ame]|enter[next]|q[uit]).';
         my $msg4 = 'Input \'e\' or \'j\' or \'e2\' or \'j2\'.';
         my $msg5 = "You can choose a number from 1-$limit.";
@@ -76,24 +76,6 @@ package Carvo {
                 $key = $words->[$num];
                 print "$key\n";
                 $voice->();
-            } elsif ($in =~ /^(\w+)$/) {
-                $key = $1;
-                if (exists($english{$key})) {
-                    print "Here is '$key'. Write the answer.\n";
-                    while (my $in2 = <>) {
-                        if ($in2 =~ /^($quit)$/) {
-                            print "$key: $english->{$key}\n$msg2\n";
-                            last;
-                        } elsif ($in2 =~ /^($english->{$key})$/) {
-                            print "Good!!\n$key: $english->{$key}\nKeep at it!\n";
-                            last;
-                        } else {
-                            print "NG! '$key'\nAgain!\n";
-                        }
-                    }
-                } else {
-                    print "Here is not '$key'.\n$msg3\n";
-                }
             } else {
                 print "Please input a correct one.\n";
             }
