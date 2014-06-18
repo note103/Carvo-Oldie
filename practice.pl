@@ -4,10 +4,11 @@ use warnings;
 use lib 'lib';
 use Carvo;
 
-print "Input 'e' or 'j' or 'e2' or 'j2'.\n";
+my $msg = "Input (e|j|e2|j2|q).\n";
+print "$msg\n";
 
 while (my $in = <>) {
-    if ($in =~ /^(q|d)$/) {
+    if ($in =~ /^(q)$/) {
         print "Bye bye!\n";
         last;
     } elsif ($in =~ /^(e|e2|j|j2|\n)$/) {
