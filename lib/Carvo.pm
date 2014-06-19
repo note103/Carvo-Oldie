@@ -15,9 +15,9 @@ package Carvo {
         my $port = 0;
         my $count = @words;
         my $limit = $count - 1;
-        my $msg1 = 'Input (a number|a word|r[andom]|q[uit]).';
-        my $msg2 = 'Input (a number|a word|r[andom]|enter[next]|q[uit]).';
-        my $msg3 = 'Input (a number|a word|r[andom]|s[ame]|enter[next]|q[uit]).';
+        my $msg1 = 'Input (a number|r[andom]|q[uit]).';
+        my $msg2 = 'Input (a number|r[andom]|enter[next]|q[uit]).';
+        my $msg3 = 'Input (a number|r[andom]|s[ame]|enter[next]|q[uit]).';
         my $msg4 = 'Input (e|j|e2|j2|q).';
         my $msg5 = "You can choose a number from 1-$limit.";
         my $msg6 = "Too big! $msg5";
