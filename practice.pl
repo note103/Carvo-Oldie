@@ -9,7 +9,7 @@ print "$msg\n";
 
 while (my $in = <>) {
     if ($in =~ /^(q)$/) {
-        print "Bye bye!\n";
+        print "Your score is $Carvo::point pt!\nBye bye!\n";
         last;
     } elsif ($in =~ /^(e|e2|j|j2|\n)$/) {
         Carvo::tutor(Generator::switch("$1"));

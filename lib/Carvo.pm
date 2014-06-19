@@ -4,22 +4,24 @@ use warnings;
 use Carvo::Generator;
 
 package Carvo {
+    our $point = 0;
     sub tutor {
         my $english = shift;
         my %english = %$english;
         my @words = sort (keys %english);
         my $words = \@words;
-        my $quit = 'q|d|\n';
+        my $quit = 'q|\n';
         my ($key, $num);
         my $port = 0;
         my $count = @words;
         my $limit = $count - 1;
-        my $msg1 = 'Input (a number|r[andom]|q[uit]).';
-        my $msg2 = 'Input (a number|r[andom]|enter[next]|q[uit]).';
-        my $msg3 = 'Input (a number|r[andom]|s[ame]|enter[next]|q[uit]).';
-        my $msg4 = 'Input \'e\' or \'j\' or \'e2\' or \'j2\'.';
+        my $msg1 = 'Input (a number|a word|r[andom]|q[uit]).';
+        my $msg2 = 'Input (a number|a word|r[andom]|enter[next]|q[uit]).';
+        my $msg3 = 'Input (a number|a word|r[andom]|s[ame]|enter[next]|q[uit]).';
+        my $msg4 = 'Input (e|j|e2|j2|q).';
         my $msg5 = "You can choose a number from 1-$limit.";
         my $msg6 = "Too big! $msg5";
+        my $msg_pt;
         print "$msg2\n$msg5\n";
         my $voice = sub {
             while (my $in2 = <>) {
@@ -27,16 +29,17 @@ package Carvo {
                     print "$key($num): $english->{$key}\n$msg3\n";
                     last;
                 } elsif ($in2 =~ /^($english->{$key})$/) {
-                    print "Good!!\n$key($num): $english->{$key}\nKeep at it!\n$msg3\n";
+                    $point++;
+                    print "\nGood!!\n$key($num): $english->{$key}\n\nYou got $point pt!\n$msg3\n";
                     last;
                 } else {
-                    print "NG! '$words->[$num]'\nAgain!\n";
+                    print "\nNG! '$words->[$num]'\nAgain!\n";
                 }
             }
         };
 
         while (my $in = <>) {
-            if ($in =~ /^(q|d)$/) {
+            if ($in =~ /^(q)$/) {
                 print "Bye!\n$msg4\n";
                 last;
             } elsif ($in =~ /^0$/) {
@@ -80,15 +83,28 @@ package Carvo {
                 $key = $1;
                 if (exists($english{$key})) {
                     print "Here is '$key'. Write the answer.\n";
+                    my $num_get = num_get($key, @words);
+                    sub num_get {
+                        my($str, @arr) = @_;
+                        my $i = 0;
+                        for (@arr) {
+                            if($str eq $arr[$i]){
+                                return $i;
+                            } else {
+                                $i++;
+                            }
+                        }
+                    }
                     while (my $in2 = <>) {
                         if ($in2 =~ /^($quit)$/) {
-                            print "$key: $english->{$key}\n$msg2\n";
+                            print "$key($num_get): $english->{$key}\n$msg2\n";
                             last;
                         } elsif ($in2 =~ /^($english->{$key})$/) {
-                            print "Good!!\n$key: $english->{$key}\nKeep at it!\n";
+                            $point++;
+                            print "\nGood!!\n$key($num_get): $english->{$key}\n\nYou got $point pt!\n$msg3\n";
                             last;
                         } else {
-                            print "NG! '$key'\nAgain!\n";
+                            print "\nNG! '$key'\nAgain!\n";
                         }
                     }
                 } else {
@@ -98,6 +114,9 @@ package Carvo {
                 print "Please input a correct one.\n";
             }
         }
+    }
+    sub score {
+        return $point;
     }
 }
 
