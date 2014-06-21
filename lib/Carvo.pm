@@ -40,24 +40,30 @@ package Carvo {
 
         while (my $in = <>) {
             if ($in =~ /^(q)$/) {
-                print "Bye!\n$msg4\n";
+                print "\nBye!\n$msg4\n";
                 last;
             } elsif ($in =~ /^0$/) {
-                print "$msg5\n";
+                print "\n$msg5\n";
             } elsif ($in =~ /^(\d+)$/) {
                 $num = $1;
                 $port = $num;
                 if ($in > $limit) {
-                    print "$msg6\n$msg1\n";
-                    next;
+                    print "\n$msg6\nThis is random select.\n";
+                    my $random = int(rand($limit));
+                    $num = $random;
+                    $port = $num;
+                    $key = $words->[$num];
+                    print "\n$key\n";
+                    $voice->();
                 } else {
                     $key = $words->[$num];
-                    print "$key\n";
+                    print "\n$key\n";
                     $voice->();
                 }
             } elsif ($in =~ /^(n|\n)$/) {
-                if ($port >= $limit) {
-                    print "$msg6\n$msg1\n";
+                if ($port == $limit) {
+                    print "\nYou exceeded the maximum. Return to the beggining.\n$msg2\n";
+                    $port = 1;
                     next;
                 } else {
                     $num = $port+1;
@@ -70,19 +76,19 @@ package Carvo {
                 my $random = int(rand($limit));
                 $num = $random;
                 $port = $num;
-                $key = $words->[$random];
-                print "$key\n";
+                $key = $words->[$num];
+                print "\n$key\n";
                 $voice->();
             } elsif ($in =~ /^(s)$/) {
                 $num = $port;
                 $port = $num;
                 $key = $words->[$num];
-                print "$key\n";
+                print "\n$key\n";
                 $voice->();
             } elsif ($in =~ /^(\w+)$/) {
                 $key = $1;
                 if (exists($english{$key})) {
-                    print "Here is '$key'. Write the answer.\n";
+                    print "\nHere is '$key'. Write the answer.\n";
                     my $num_get = num_get($key, @words);
                     sub num_get {
                         my($str, @arr) = @_;
@@ -108,10 +114,18 @@ package Carvo {
                         }
                     }
                 } else {
-                    print "Here is not '$key'.\n$msg3\n";
+                    print "\nHere is not '$key'.\n$msg3\n";
                 }
+            } elsif ($in =~ /^([\W\D]+)$/) {
+                print "\nPlease input a correct one.\nThis is random select.\n";
+                my $random = int(rand($limit));
+                $num = $random;
+                $port = $num;
+                $key = $words->[$num];
+                print "\n$key\n";
+                $voice->();
             } else {
-                print "Please input a correct one.\n";
+                print "\nPlease input a correct one.\n";
             }
         }
     }

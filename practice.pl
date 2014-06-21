@@ -4,7 +4,7 @@ use warnings;
 use lib 'lib';
 use Carvo;
 
-my $msg = "Input (e|j|e2|j2|q).\n";
+my $msg = "Input (e|j|e2|j2|q).";
 print "$msg\n";
 
 while (my $in = <>) {
