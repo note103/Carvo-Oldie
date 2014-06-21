@@ -5,6 +5,9 @@ use Carvo::Generator;
 
 package Carvo {
     our $point = 0;
+    our $miss = 0;
+    our $total = $point + $miss;
+    our ($times, $hits, $errors) = qw(times hits errors);
     sub tutor {
         my $english = shift;
         my %english = %$english;
@@ -18,7 +21,7 @@ package Carvo {
         my $msg1 = 'Input (a number|r[andom]|q[uit]).';
         my $msg2 = 'Input (a number|r[andom]|enter[next]|q[uit]).';
         my $msg3 = 'Input (a number|r[andom]|s[ame]|enter[next]|q[uit]).';
-        my $msg4 = 'Input (e|j|e2|j2|q).';
+        my $msg4 = 'Input (1|2|3|4|q).';
         my $msg5 = "You can choose a number from 1-$limit.";
         my $msg6 = "Too big! $msg5";
         my $msg_pt;
@@ -30,9 +33,12 @@ package Carvo {
                     last;
                 } elsif ($in2 =~ /^($english->{$key})$/) {
                     $point++;
-                    print "\nGood!!\n$key($num): $english->{$key}\n\nYou got $point pt!\n$msg3\n";
+                    $total = $point + $miss;
+                    plural($total, $point, $miss);
+                    print "\nGood!!\n$key($num): $english->{$key}\n\nYou tried $total $times. $point $hits and $miss $errors.\n$msg3\n";
                     last;
                 } else {
+                    $miss++;
                     print "\nNG! '$words->[$num]'\nAgain!\n";
                 }
             }
@@ -107,9 +113,12 @@ package Carvo {
                             last;
                         } elsif ($in2 =~ /^($english->{$key})$/) {
                             $point++;
-                            print "\nGood!!\n$key($num_get): $english->{$key}\n\nYou got $point pt!\n$msg3\n";
+                            $total = $point + $miss;
+                            plural($total, $point, $miss);
+                            print "\nGood!!\n$key($num_get): $english->{$key}\n\nYou tried $total $times. $point $hits and $miss $errors.\n$msg3\n";
                             last;
                         } else {
+                            $miss++;
                             print "\nNG! '$key'\nAgain!\n";
                         }
                     }
@@ -131,6 +140,24 @@ package Carvo {
     }
     sub score {
         return $point;
+    }
+    sub plural {
+        ($times, $hits, $errors) = @_;
+        unless ($times == 1) {
+            $times = 'times';
+        } else {
+            $times = 'time';
+        }
+        unless ($point == 1) {
+            $hits = 'hits';
+        } else {
+            $hits = 'hit';
+        }
+        unless ($miss == 1) {
+            $errors = 'errors';
+        } else {
+            $errors = 'error';
+        }
     }
 }
 

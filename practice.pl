@@ -4,14 +4,25 @@ use warnings;
 use lib 'lib';
 use Carvo;
 
-my $msg = "Input (e|j|e2|j2|q).";
-print "$msg\n";
+my $msg = "
+    Select a number of courses from 1 to 4.\n
+    1: English question & Japanese answer - Short version
+    2: English question & Japanese answer - Large version
+    3: Japanese question & English answer - Short version
+    4: Japanese question & English answer - Large version
+    q: Exit";
+
+print "$msg\n\n";
 
 while (my $in = <>) {
     if ($in =~ /^(q)$/) {
-        print "Your score is $Carvo::point pt!\nBye bye!\n";
+        print "
+    Total score:
+    $Carvo::total $Carvo::times
+    $Carvo::point $Carvo::hits
+    $Carvo::miss $Carvo::errors\n\nBye bye!\n\n";
         last;
-    } elsif ($in =~ /^(e|e2|j|j2|\n)$/) {
+    } elsif ($in =~ /^([1-4]|\n)$/) {
         Carvo::tutor(Generator::switch("$1"));
     } else {
         print "Please input a correct one.\n";
