@@ -15,9 +15,9 @@ package Carvo {
         my $words = \@words;
         my $quit = 'q|\n';
         my ($key, $num);
-        my $port = 0;
         my $count = @words;
         my $limit = $count - 1;
+        my $port = 0;
         my $msg1 = 'Input (a number|r[andom]|q[uit]).';
         my $msg2 = 'Input (a number|r[andom]|enter[next]|q[uit]).';
         my $msg3 = 'Input (a number|r[andom]|s[ame]|enter[next]|q[uit]).';
@@ -75,7 +75,7 @@ package Carvo {
                     $num = $port+1;
                     $port = $num;
                     $key = $words->[$num];
-                    print "$key\n";
+                    print "\n$key\n";
                     $voice->();
                 }
             } elsif ($in =~ /^(r)$/) {
