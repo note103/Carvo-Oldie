@@ -19,9 +19,9 @@ Cards of vocabulary
 $ cd Carvo
 ```
 
-1. ターミナルで`practice.pl`を実行します。
+1. ターミナルで`carvo.pl`を実行します。
 ```
-$ perl practice.pl
+$ perl carvo.pl
 ```
 
 1. 以下の選択肢が出てくるので、`1`〜`4` のいずれかを入力＆エンターするとレッスンが始まります  
