@@ -29,13 +29,13 @@ package Carvo {
         my $voice = sub {
             while (my $in2 = <>) {
                 if ($in2 =~ /^($quit)$/) {
-                    print "$key($num): $english->{$key}\n$msg3\n";
+                    print "$key($num)\n$english->{$key}\n\n$msg3\n";
                     last;
                 } elsif ($in2 =~ /^($english->{$key})$/) {
                     $point++;
                     $total = $point + $miss;
                     plural($total, $point, $miss);
-                    print "\nGood!!\n$key($num): $english->{$key}\n\nYou tried $total $times. $point $hits and $miss $errors.\n$msg3\n";
+                    print "\nGood!!\n$key($num)\n$english->{$key}\n\nYou tried $total $times. $point $hits and $miss $errors.\n$msg3\n";
                     last;
                 } else {
                     $miss++;
@@ -109,13 +109,13 @@ package Carvo {
                     }
                     while (my $in2 = <>) {
                         if ($in2 =~ /^($quit)$/) {
-                            print "$key($num_get): $english->{$key}\n$msg2\n";
+                            print "$key($num_get)\n$english->{$key}\n$msg2\n";
                             last;
                         } elsif ($in2 =~ /^($english->{$key})$/) {
                             $point++;
                             $total = $point + $miss;
                             plural($total, $point, $miss);
-                            print "\nGood!!\n$key($num_get): $english->{$key}\n\nYou tried $total $times. $point $hits and $miss $errors.\n$msg3\n";
+                            print "\nGood!!\n$key($num_get)\n$english->{$key}\n\nYou tried $total $times. $point $hits and $miss $errors.\n$msg3\n";
                             last;
                         } else {
                             $miss++;

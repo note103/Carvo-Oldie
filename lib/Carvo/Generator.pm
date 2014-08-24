@@ -10,7 +10,7 @@ package Generator {
     sub data2hash {
         %convert = ();
         while ($line = <$fh>) {
-            if ($line =~ /^  "(.+)": "(.+)"$/) {
+            if ($line =~ /^  "(.+)": "(.+)",$/) {
                 $convert{$1} = $2;
             }
         }
@@ -18,7 +18,7 @@ package Generator {
     sub replace_d2h {
         %convert = ();
         while ($line = <$fh>) {
-            if ($line =~ /^  "(.+)": "(.+)"$/) {
+            if ($line =~ /^  "(.+)": "(.+)",$/) {
                 $convert{$2} = $1;
             }
         }
