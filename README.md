@@ -78,6 +78,10 @@ $ perl carvo.pl
 - 英単語を入れたらそれが登録されているかどうかを返し、正答orギブアップしたら回答とその登録番号を返すようにしたい 2014/06/18 11:58 2014/06/19 10:23
 - [Changes](https://github.com/note103/Carvo/blob/master/Changes)
 
+## ライセンス
+Copyright (C) Hiroaki Kadomatsu.
+
+This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
 ## 作者
 
