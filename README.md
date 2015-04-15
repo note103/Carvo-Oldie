@@ -7,6 +7,7 @@ Cards of vocabulary
 
 - 英単語学習のためのプログラムです。
 - 英単語が出てきたら日本語を、日本語が出てきたら英単語を打ち込みます。
+- 続編: https://github.com/note103/Carvo2/blob/master/README.md
 
 ## DEMO
 
